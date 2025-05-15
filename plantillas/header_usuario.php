@@ -25,7 +25,7 @@
             </div>
         </div>
         <div id=headerDerecha>
-            <img id="logo_usuario" src="img/logo_usuario" alt="">
+            <img id="logo_usuario" src="img/logo_usuario.png" alt="">
         </div>
     </header>
 

@@ -16,8 +16,9 @@ header{
     text-align: center;
 }
 #logo{
-    width: 285px;
+    width: 90%;
     margin-top: 15px;
+	margin-left: 15px;
 }
 #headerCentro{
     width: 55%;
