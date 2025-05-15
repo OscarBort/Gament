@@ -1,0 +1,74 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body{
+    background-color: #000000;
+}
+header{
+    display: flex;
+    height: 120px;
+    margin-top: 15px;
+}
+#headerIzquierda{
+    width: 20%;
+    text-align: center;
+}
+#logo{
+    width: 285px;
+    margin-top: 15px;
+}
+#headerCentro{
+    width: 55%;
+    justify-content: center;
+    margin-top: 30px;
+    padding-left: 40px;
+}
+#headerDerecha{
+    width: 25%;
+}
+#logo_usuario{
+    width: 100px;
+    height: 100px;
+    border: 3px solid white;
+    border-radius: 50%;
+    margin-left: 80px;
+}
+.custom_input {
+	display: flex;
+	align-items: center;
+	position: relative;
+	max-width: 100%;
+}
+
+.input {
+	font-size: 18px;
+	padding: 10px 10px;
+	width: 100%;
+	padding-right: 10px;
+	outline: none;
+	background: #DC7A00;
+	color: #000000;
+	border: 1px solid #000000;
+	border-radius: 20px;
+	transition: .3s ease;
+}
+
+.input:focus {
+	background: #DC7A00;
+	border: 1px solid #000000;
+	border-radius: 20px;
+}
+
+.input::placeholder {
+	color: #000000;
+}
+
+.svg_icon {
+	position: absolute;
+	right: 18px;
+	fill: #000000;
+	width: 18px;
+	height: 18px;
+}
