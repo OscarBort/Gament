@@ -1,4 +1,3 @@
-</main>
-<footer></footer>
-</body>
-</html>
+<?php
+include "plantillas/contenido_footer.php";
+?>
