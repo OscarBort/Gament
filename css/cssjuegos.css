@@ -64,6 +64,7 @@
   border: 2px solid red;
   background-color: #111;
   padding: 10px;
+  color: white;
 }
 
 .opinions {
@@ -71,6 +72,7 @@
   border: 2px solid red;
   background-color: #111;
   padding: 10px;
+  color: white;
 }
 
 /* Tercera fila horizontal */
@@ -79,6 +81,7 @@
   border: 2px solid red;
   background-color: #111;
   padding: 10px;
+  color: white;
 }
 
 .text-opinion {
@@ -86,5 +89,6 @@
   border: 2px solid red;
   background-color: #111;
   padding: 10px;
+  color: white;
 }
 

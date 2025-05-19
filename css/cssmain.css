@@ -40,3 +40,20 @@ main{
   opacity: 1;
   z-index: 1;
 }
+/* Media query para dispositivos móviles (ancho menor o igual a 768px) */
+@media (max-width: 768px) {
+    #mainIzquierda, #mainDerecha {
+        display: none; /* Oculta los elementos en móviles */
+    }
+
+    #mainCentro {
+        width: 100%; /* Ocupa todo el ancho disponible */
+        margin: 0; /* Elimina márgenes para aprovechar el espacio */
+    }
+
+    .banner-container {
+        max-width: 100%; /* Asegura que el banner ocupe el ancho completo */
+        margin-left: 0; /* Elimina el margen izquierdo */
+        height: 200px; /* Opcional: reduce la altura para móviles */
+    }
+}

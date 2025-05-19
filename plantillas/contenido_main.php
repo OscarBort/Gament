@@ -1,3 +1,17 @@
+<?php
+require_once 'funciones.php';
+
+try {
+    $conn = db_connect();
+
+    // Ejemplo de consulta SELECT directa
+    $sql = "SELECT portada, id_juego FROM juegos ORDER BY fcreacion LIMIT 10;";
+    $results = db_query($conn, $sql);
+
+} catch(Exception $e) {
+    echo $e->getMessage();
+}
+?>
 <div id="mainIzquierda">
   <p>Hola mundo</p>
 </div>
@@ -5,34 +19,34 @@
   <div class="wrapper">
       <div class="inner" style="--quantity: 10;">
         <div class="card" style="--index: 0;--color-card: 142, 249, 252;">
-          <a href="pagina_juegos.php"><div class="img"><img class="img" src="img/godofwar.jpg" alt=""></div></a>
+          <a href="pagina_juegos.php?id=<?php echo $results[0]['id_juego']?>"><div class="img"><img class="img" src="<?php echo $results[0]["portada"]?>"></div></a>
         </div>
         <div class="card" style="--index: 1;--color-card: 142, 252, 204;">
-          <div class="img"><img class="img" src="img/ageofempires.png" alt=""></div>
+          <a href="pagina_juegos.php?id=<?php echo $results[1]['id_juego']?>"><div class="img"><img class="img" src="<?php echo $results[1]["portada"]?>"></div></a>
         </div>
         <div class="card" style="--index: 2;--color-card: 142, 252, 157;">
-          <div class="img"><img class="img" src="img/ambidextro.png" alt=""></div>
+          <a href="pagina_juegos.php?id=<?php echo $results[2]['id_juego']?>"><div class="img"><img class="img" src="<?php echo $results[2]["portada"]?>"></div></a>
         </div>
         <div class="card" style="--index: 3;--color-card: 215, 252, 142;">
-          <div class="img"><img class="img" src="img/amongus.png" alt=""></div>
+          <a href="pagina_juegos.php?id=<?php echo $results[3]['id_juego']?>"><div class="img"><img class="img" src="<?php echo $results[3]["portada"]?>"></div></a>
         </div>
         <div class="card" style="--index: 4;--color-card: 252, 252, 142;">
-          <div class="img"><img class="img" src="img/bendy.png" alt=""></div>
+          <a href="pagina_juegos.php?id=<?php echo $results[4]['id_juego']?>"><div class="img"><img class="img" src="<?php echo $results[4]["portada"]?>"></div></a>
         </div>
         <div class="card" style="--index: 5;--color-card: 252, 208, 142;">
-          <div class="img"><img class="img" src="img/doom.png" alt=""></div>
+          <a href="pagina_juegos.php?id=<?php echo $results[5]['id_juego']?>"><div class="img"><img class="img" src="<?php echo $results[5]["portada"]?>"></div></a>
         </div>
         <div class="card" style="--index: 6;--color-card: 252, 142, 142;">
-          <div class="img"><img class="img" src="img/inzoi.png" alt=""></div>
+          <a href="pagina_juegos.php?id=<?php echo $results[6]['id_juego']?>"><div class="img"><img class="img" src="<?php echo $results[6]["portada"]?>"></div></a>
         </div>
         <div class="card" style="--index: 7;--color-card: 252, 142, 239;">
-          <div class="img"><img class="img" src="img/oblivion.png" alt=""></div>
+          <a href="pagina_juegos.php?id=<?php echo $results[7]['id_juego']?>"><div class="img"><img class="img" src="<?php echo $results[7]["portada"]?>"></div></a>
         </div>
         <div class="card" style="--index: 8;--color-card: 204, 142, 252;">
-          <div class="img"><img class="img" src="img/palia.png" alt=""></div>
+          <a href="pagina_juegos.php?id=<?php echo $results[8]['id_juego']?>"><div class="img"><img class="img" src="<?php echo $results[8]["portada"]?>"></div></a>
         </div>
         <div class="card" style="--index: 9;--color-card: 142, 202, 252;">
-          <div class="img"><img class="img" src="img/stardewvalley.png" alt=""></div>
+          <a href="pagina_juegos.php?id=<?php echo $results[9]['id_juego']?>"><div class="img"><img class="img" src="<?php echo $results[9]["portada"]?>"></div></a>
         </div>
       </div>
     </div>
@@ -46,7 +60,10 @@
 <div id="mainDerecha">
   <p>Hola mundo</p>
 </div>
-
+<?php
+// Cerrar conexión
+    db_close($conn);
+?>
 <script>
   let index = 0;
   const slides = document.querySelectorAll('.banner-slide');

@@ -1,11 +1,14 @@
 <?php
 require_once 'funciones.php';
 
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+}
 try {
     $conn = db_connect();
 
     // Ejemplo de consulta SELECT directa
-    $sql = "SELECT portada, juegos.nombre AS nombreJ, descripcion, precio, avg(nota) AS nota, comentario, usuario FROM juegos INNER JOIN valoraciones on juegos.id_juego=valoraciones.id_juego INNER JOIN usuarios on valoraciones.id_usuario=usuarios.id_usuario WHERE juegos.id_juego=1;";
+    $sql = "SELECT portada, juegos.nombre AS nombreJ, descripcion, precio, avg(nota) AS nota, comentario, usuario FROM juegos left JOIN valoraciones on juegos.id_juego=valoraciones.id_juego left JOIN usuarios on valoraciones.id_usuario=usuarios.id_usuario WHERE juegos.id_juego=$id;";
     $results = db_query($conn, $sql);
 
 } catch(Exception $e) {
