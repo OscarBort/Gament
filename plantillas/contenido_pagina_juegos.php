@@ -34,8 +34,9 @@ try {
       <div class="cart">Carrito</div>
     </div>
   </div>
-
-  <div class="avg"><?php echo $results[0]['nota']?></div>
+<?php if (floor($results[0]['nota']) == 0){
+  echo '<div class="avg"><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i></div>';
+}?>
   <div class="opinions"><?php echo $results[0]['usuario'] . " - " . $results[0]['comentario']?></div>
   <div class="note">Nota</div>
   <div class="text-opinion">Textarea Opinión</div>
