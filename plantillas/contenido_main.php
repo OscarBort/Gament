@@ -5,7 +5,7 @@
   <div class="wrapper">
       <div class="inner" style="--quantity: 10;">
         <div class="card" style="--index: 0;--color-card: 142, 249, 252;">
-          <div class="img"><img class="img" src="img/godofwar.jpg" alt=""></div>
+          <a href="pagina_juegos.php"><div class="img"><img class="img" src="img/godofwar.jpg" alt=""></div></a>
         </div>
         <div class="card" style="--index: 1;--color-card: 142, 252, 204;">
           <div class="img"><img class="img" src="img/ageofempires.png" alt=""></div>

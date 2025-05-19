@@ -1,7 +1,7 @@
 <nav id='menu'>
   <input type='checkbox' id='responsive-menu' onclick='updatemenu()'><label></label>
   <ul>
-    <li><a href='http://'>Home</a></li>
+    <li><a href='index.php'>Home</a></li>
     <li><a class='dropdown-arrow' href='http://'>Compañía</a>
       <ul class='sub-menus'>
         <li><a href='http://'>Sony</a></li>

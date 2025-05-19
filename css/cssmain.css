@@ -7,13 +7,13 @@ main{
     display: flex;
 }
 #mainIzquierda, #mainDerecha{
-    width: 15%;
+    width: 12%;
     background-color: #DC7A00;
 }
 #mainCentro{
     display: flex;
     flex-direction: column;
-    width: 70%;
+    width: 76%;
 }
 .banner-container {
     width: 100%;

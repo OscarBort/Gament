@@ -1,0 +1,90 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+.main {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: auto auto auto auto;
+  gap: 10px;
+  padding: 20px;
+  background-color: black;
+}
+
+.left-column {
+  grid-row: 1 / span 3;
+  grid-column: 1;
+}
+
+.cover {
+  height: 600px;
+  width: 400px;
+}
+#imagenPortada{
+    height: inherit;
+    width: inherit;
+}
+
+.right-column {
+  grid-column: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 150px;
+}
+
+.title, .description {
+  border: 2px solid red;
+  background-color: #111;
+  padding: 10px;
+  text-align: center;
+  color: white;
+  font-size: larger;
+}
+
+.price-cart {
+  display: flex;
+  gap: 10px;
+  color: white;
+  text-align: center;
+  font-size: larger;
+}
+
+.price, .cart {
+  flex: 1;
+  border: 2px solid red;
+  background-color: #111;
+  padding: 10px;
+}
+
+/* Segunda fila horizontal */
+.avg {
+  grid-column: 1;
+  border: 2px solid red;
+  background-color: #111;
+  padding: 10px;
+}
+
+.opinions {
+  grid-column: 2;
+  border: 2px solid red;
+  background-color: #111;
+  padding: 10px;
+}
+
+/* Tercera fila horizontal */
+.note {
+  grid-column: 1;
+  border: 2px solid red;
+  background-color: #111;
+  padding: 10px;
+}
+
+.text-opinion {
+  grid-column: 2;
+  border: 2px solid red;
+  background-color: #111;
+  padding: 10px;
+}
+
