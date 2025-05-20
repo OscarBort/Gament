@@ -1,5 +1,6 @@
 <script src="funciones.js"></script>
 <?php require_once "funciones.php"?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -17,6 +18,13 @@
     <script src="https://kit.fontawesome.com/89d2629216.js" crossorigin="anonymous"></script>
     <title>Gamen't</title>
 </head>
+<?php
+    if(isset($_POST["usuario"]) && isset($_POST["password"])){
+        //if ($_SERVER["PHP_SELF"] != "/portal/login.php")
+            //$_SESSION['origen'] = $_SERVER["PHP_SELF"];
+        login(sanear($_POST["usuario"]), sanear($_POST["password"]));
+    }
+?>
 <body>
     <header>
         <div id=headerIzquierda>
@@ -29,9 +37,16 @@
             </div>
         </div>
         <div id=headerDerecha>
-            <img id="logo_usuario" src="img/logo_usuario.png" alt="">
-            <a href="plantillas/logout.php"><button>Salir</button></a>
+            <button onclick="window.modal.showModal();">Login</button>
+                <dialog id="modal">
+                    <form method="POST" action="<?=($_SERVER['PHP_SELF'])?>">
+                        <label for="usuario" id="usuarioLabel">Usuario:</label><br>
+                        <input type="text" id="usuarioLogin" name="usuario" autocomplete="off"><br>
+                        <label for="password" id="passwordLabel">Contraseña</label><br>
+                        <input type="password" id="passwordLogin" name="password" autocomplete="off"><br>
+                        <input type="submit" value="Submit" id="boton">
+                    </form>
+                <button onclick="window.modal.close();">Cerrar</button>
+                </dialog>
         </div>
     </header>
-
-
