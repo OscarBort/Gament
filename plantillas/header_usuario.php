@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="css/cssmain.css">
     <link rel="stylesheet" href="css/cssfooter.css">
     <link rel="stylesheet" href="css/cssjuegos.css">
+    <link rel="stylesheet" href="css/cssregistro.css">
     <meta name="description" content="Una página copia de otras como Game o Gamestop">
     <meta name="author" content="Oscar Bort">
     <script src="https://kit.fontawesome.com/89d2629216.js" crossorigin="anonymous"></script>

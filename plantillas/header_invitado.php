@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="css/cssmain.css">
     <link rel="stylesheet" href="css/cssfooter.css">
     <link rel="stylesheet" href="css/cssjuegos.css">
+    <link rel="stylesheet" href="css/cssregistro.css">
     <meta name="description" content="Una página copia de otras como Game o Gamestop">
     <meta name="author" content="Oscar Bort">
     <script src="https://kit.fontawesome.com/89d2629216.js" crossorigin="anonymous"></script>
@@ -26,6 +27,7 @@
     }
 ?>
 <body>
+    <?php echo var_dump($_SESSION['rol']) ?>
     <header>
         <div id=headerIzquierda>
             <img src="img/logo.png" id="logo" alt="Logo parodia de otras compañías de venta de videojuegos en color naranja y de texto GAMEN'T">
@@ -37,7 +39,7 @@
             </div>
         </div>
         <div id=headerDerecha>
-            <button onclick="window.modal.showModal();">Login</button>
+            <button id="botonLogin" onclick="window.modal.showModal();">Login</button>
                 <dialog id="modal">
                     <form method="POST" action="<?=($_SERVER['PHP_SELF'])?>">
                         <label for="usuario" id="usuarioLabel">Usuario:</label><br>
@@ -48,5 +50,6 @@
                     </form>
                 <button onclick="window.modal.close();">Cerrar</button>
                 </dialog>
+            <a class="enlace" href="registro.php"><button id="botonRegistro">Registrarse</button></a>
         </div>
     </header>

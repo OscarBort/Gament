@@ -30,7 +30,9 @@ function db_close(&$conn) {
 }
 
 function sessionStart(){
-    session_start();
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
     
 
     if (!isset($_SESSION["rol"]))
@@ -51,7 +53,6 @@ function login($usuario, $password){
     if (isset($_POST["usuario"]) && isset($_POST["password"])){
         if ($usuario != ""){
             $conn = db_connect();
-        db_connect();
         $sql = "SELECT usuario, password, rol FROM usuarios WHERE usuario = '" . $_POST['usuario'] . "'";
         $results = db_query($conn, $sql);
         if (password_verify($password, $results[0]["password"])){
@@ -61,6 +62,7 @@ function login($usuario, $password){
                 header("Location:" . $_SESSION['origen']);
             else header("Location: index.php");
             unset($_SESSION['origen']);
+            $conn = db_close();
             die();
         }
         }
@@ -80,5 +82,14 @@ function sanear($data) {
     $data = stripslashes($data);
     $data = htmlspecialchars($data);
     return $data;
+}
+
+function registro(){
+    $conn = db_connect();
+    $sql = "INSERT INTO usuarios (usuario, password, email, nombre, apellido1, apellido2, NIF, fnacimiento, telefono)
+    VALUES ('" . $_POST['usuario'] . "', '" . password_hash($_POST['password'], PASSWORD_DEFAULT) .  "', '" . $_POST['email'] . "', '" . $_POST['nombre'] . "', '" . $_POST['apellido1'] . "', '" . $_POST['apellido2'] . "', '" . $_POST['NIF'] . "', '" . $_POST['fnacimiento'] . "', '" . $_POST['telefono'] . "')";
+    $conn->exec($sql);
+    db_close($conn);
+    header ("Location: index.php");
 }
 ?>

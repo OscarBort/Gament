@@ -131,7 +131,7 @@ input[type="submit"] {
 }
 
 input[type="submit"]:hover {
-    background-color: #FF8C00; /* Naranja más claro al pasar el ratón */
+    background-color: #DC7A00; /* Naranja más claro al pasar el ratón */
 }
 
 /* Estilo del botón de cerrar (coincidiendo con input[type="submit"]) */
@@ -149,7 +149,7 @@ button[onclick="window.modal.close();"] {
 }
 
 button[onclick="window.modal.close();"]:hover {
-    background-color: #FF8C00; /* Igual que input[type="submit"]:hover */
+    background-color: #DC7A00; /* Igual que input[type="submit"]:hover */
 }
 
 /* Ajustes para centrar el modal (si no está manejado por JavaScript) */
@@ -162,4 +162,21 @@ dialog[open] {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+#botonLogin{
+	display: block;
+	margin: auto;
+	padding: 5px 10px;
+	background-color: #DC7A00;
+	margin-bottom: 15px;
+	margin-top: 10px;
+}
+#botonRegistro{
+	display: block;
+	margin: auto;
+	padding: 5px 10px;
+	background-color: #DC7A00;
+}
+.enlace{
+	text-decoration: none;
 }
