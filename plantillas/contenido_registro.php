@@ -1,5 +1,8 @@
-
-<?php require_once "funciones.php" ?>
+<?php require_once "funciones.php";
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    registro();
+    exit;
+} ?>
     <form class="form" method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
     <p class="titleRegistro">Registro </p>
     <label>
@@ -43,8 +46,3 @@
     </label>
     <button class="submit">Submit</button>
 </form>
-<?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    registro();
-}
-?>
