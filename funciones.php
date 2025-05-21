@@ -1,8 +1,5 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "gament";
+include "C:/wamp64/credenciales/credencialesgament.php";
 
 function db_connect() {
     global $servername, $username, $password, $dbname;
