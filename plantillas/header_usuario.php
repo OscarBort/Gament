@@ -21,7 +21,7 @@
 <body>
     <header>
         <div id=headerIzquierda>
-            <img src="img/logo.png" id="logo" alt="Logo parodia de otras compañías de venta de videojuegos en color naranja y de texto GAMEN'T">
+            <a href="index.php"><img src="img/logo.png" id="logo" alt="Logo parodia de otras compañías de venta de videojuegos en color naranja y de texto GAMEN'T"></a>
         </div>
         <div id=headerCentro>
             <div class="custom_input">

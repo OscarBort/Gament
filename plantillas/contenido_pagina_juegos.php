@@ -8,9 +8,11 @@ try {
     $conn = db_connect();
 
     // Ejemplo de consulta SELECT directa
-    $sql = "SELECT portada, juegos.nombre AS nombreJ, descripcion, precio, avg(nota) AS nota, comentario, usuario FROM juegos left JOIN valoraciones on juegos.id_juego=valoraciones.id_juego left JOIN usuarios on valoraciones.id_usuario=usuarios.id_usuario WHERE juegos.id_juego=$id;";
+    $sql = "SELECT portada, juegos.nombre AS nombreJ, descripcion, precio, nota, comentario, usuario FROM juegos left JOIN valoraciones on juegos.id_juego=valoraciones.id_juego left JOIN usuarios on valoraciones.id_usuario=usuarios.id_usuario WHERE juegos.id_juego=$id;";
     $results = db_query($conn, $sql);
 
+    $sql = "SELECT avg(nota) AS notaMedia FROM valoraciones WHERE id_juego=$id;";
+    $notaM = db_query($conn, $sql);
 } catch(Exception $e) {
     echo $e->getMessage();
 }
@@ -33,11 +35,50 @@ try {
       <div class="price"><?php echo $results[0]['precio']?></div>
       <div class="cart">Carrito</div>
     </div>
-  </div>
-<?php if (floor($results[0]['nota']) == 0){
-  echo '<div class="avg"><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i></div>';
+    <?php switch(floor($notaM[0]['notaMedia'])){
+  case 0: echo '<div class="avg"><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i></div>';
+  break;
+  case 1: echo '<div class="avg"><i class="fa-solid fa-star-half-stroke"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i></div>';
+  break;
+  case 2: echo '<div class="avg"><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i></div>';
+  break;
+  case 3: echo '<div class="avg"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i></div>';
+  break;
+  case 4: echo '<div class="avg"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i></div>';
+  break;
+  case 5: echo '<div class="avg"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i></div>';
+  break;
+  case 6: echo '<div class="avg"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i></div>';
+  break;
+  case 7: echo '<div class="avg"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i><i class="fa-regular fa-star"></i></div>';
+  break;
+  case 8: echo '<div class="avg"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i></div>';
+  break;
+  case 9: echo '<div class="avg"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i></div>';
+  break;
+  case 10: echo '<div class="avg"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>';
+  break; 
 }?>
-  <div class="opinions"><?php echo $results[0]['usuario'] . " - " . $results[0]['comentario']?></div>
+<!-- A partir de aquí empieza el listado de notas y comentarios de los usuarios -->
+  </div>
+    <?php
+    var_dump($results);
+if (!empty($results)) {
+    foreach ($results as $result) {
+        // Nota a la izquierda
+        echo '<div class="avg">';
+        echo htmlspecialchars($result['nota']);
+        echo '</div>';
+        // Comentario a la derecha
+        echo '<div class="opinions">';
+        echo htmlspecialchars($result['usuario']) . ' - ' . htmlspecialchars($result['comentario']);
+        echo '</div>';
+    }
+} else {
+    echo '<div>No hay notas ni opiniones disponibles.</div>';
+}
+
+    ?>
   <div class="note">Nota</div>
   <div class="text-opinion">Textarea Opinión</div>
     </div>
