@@ -4,11 +4,11 @@
     <li><a href='index.php'>Home</a></li>
     <li><a class='dropdown-arrow' href='http://'>Compañía</a>
       <ul class='sub-menus'>
-        <li><a href='http://'>Sony</a></li>
-        <li><a href='http://'>XBOX</a></li>
-        <li><a href='http://'>Nintendo</a></li>
-        <li><a href='http://'>PC</a></li>
-        <li><a href='http://'>Steam</a></li>
+        <li><a href='busqueda.php?busqueda=Sony'>Sony</a></li>
+        <li><a href='busqueda.php?busqueda=Xbox'>XBOX</a></li>
+        <li><a href='busqueda.php?busqueda=Nintendo'>Nintendo</a></li>
+        <li><a href='busqueda.php?busqueda=PC'>PC</a></li>
+        <li><a href='busqueda.php?busqueda=Steam'>Steam</a></li>
       </ul>
     </li>
     <li><a class='dropdown-arrow' href='http://'>Género</a>
