@@ -74,6 +74,10 @@ header{
 	height: 18px;
 }
 
+#busqueda{
+    width: 100%;
+}
+
 /* Estilo general del dialog (modal) */
 dialog {
     border: none;
@@ -88,7 +92,7 @@ dialog {
 }
 
 /* Estilo del formulario dentro del modal */
-form {
+#login {
     display: flex;
     flex-direction: column;
     gap: 5px; /* Reducido de 10px a 5px para menos separación */
