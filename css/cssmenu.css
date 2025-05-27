@@ -21,6 +21,7 @@
 #menu li {
     display: inline-block; /* Mantiene los elementos en línea */
     position: relative;
+    font-family: 'Roboto', sans-serif;
 }
 
 #menu a {

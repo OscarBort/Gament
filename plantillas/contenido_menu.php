@@ -2,7 +2,7 @@
   <input type='checkbox' id='responsive-menu' onclick='updatemenu()'><label></label>
   <ul>
     <li><a href='index.php'>Home</a></li>
-    <li><a class='dropdown-arrow' href='http://'>Compañía</a>
+    <li><a class='dropdown-arrow'>Compañía</a>
       <ul class='sub-menus'>
         <li><a href='busqueda.php?busqueda=Sony'>Sony</a></li>
         <li><a href='busqueda.php?busqueda=Xbox'>XBOX</a></li>
@@ -11,7 +11,7 @@
         <li><a href='busqueda.php?busqueda=Steam'>Steam</a></li>
       </ul>
     </li>
-    <li><a class='dropdown-arrow' href='http://'>Género</a>
+    <li><a class='dropdown-arrow'>Género</a>
       <ul class='sub-menus'>
         <li><a href='busqueda.php?busqueda=RPG'>RPG</a></li>
         <li><a href='busqueda.php?busqueda=Acción'>Acción</a></li>

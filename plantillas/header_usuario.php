@@ -17,9 +17,12 @@
     <meta name="description" content="Una página copia de otras como Game o Gamestop">
     <meta name="author" content="Oscar Bort">
     <script src="https://kit.fontawesome.com/89d2629216.js" crossorigin="anonymous"></script>
+    <style>@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');</style>
     <title>Gamen't</title>
 </head>
 <body class="<?php echo isset($bodyClass) ? $bodyClass : ''; ?>">
+    <?php echo var_dump($_SESSION['usuario']);
+    echo var_dump($_SESSION['id_usuario']); ?>
     <header>
         <div id=headerIzquierda>
             <a href="index.php"><img src="img/logo.png" id="logo" alt="Logo parodia de otras compañías de venta de videojuegos en color naranja y de texto GAMEN'T"></a>
@@ -32,12 +35,28 @@
                 </form>
             </div>
         </div>
-        
+<?php
+try {
+            $conn = db_connect(); // ← Tu función que devuelve un objeto PDO
+            $sql = "SELECT logo FROM usuarios WHERE id_usuario=" . $_SESSION['id_usuario'];
+            $stmt = $conn->prepare($sql);
+            $stmt->execute();
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                if ($row) {
+                    $logo = $row['logo'];
+                } else {
+                    $logo = null;
+                }
+        } catch (PDOException $e) {
+            echo "Error al guardar en la base de datos: " . $e->getMessage();
+            exit;
+        }
+?>       
             <div id="headerDerecha">
-                <img id="logo_usuario" src="uploads/logodefault.png" alt="Menú Usuario" onclick="toggleMenu()">
+                <img id="logo_usuario" src="<?php echo $logo ?>" alt="Menú Usuario" onclick="toggleMenu()">
                 
                 <div id="menuDesplegable">
-                    <a href="editar_perfil.php">Editar datos de perfil</a>
+                    <a href="usuario.php">Editar datos de perfil</a>
                     <a href="plantillas/logout.php">Salir</a>
                 </div>
             </div>

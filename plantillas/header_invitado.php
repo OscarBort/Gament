@@ -18,6 +18,7 @@
     <meta name="description" content="Una página copia de otras como Game o Gamestop">
     <meta name="author" content="Oscar Bort">
     <script src="https://kit.fontawesome.com/89d2629216.js" crossorigin="anonymous"></script>
+    <style>@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');</style>
     <title>Gamen't</title>
 </head>
 <?php
@@ -44,7 +45,7 @@
         <div id=headerDerecha>
             <button id="botonLogin" onclick="window.modal.showModal();">Login</button>
                 <dialog id="modal">
-                    <form id="login" method="POST" action="<?=($_SERVER['PHP_SELF'])?>">
+                    <form id="login" method="POST" action="<?=($_SERVER['REQUEST_URI'])?>">
                         <label for="usuario" id="usuarioLabel">Usuario:</label><br>
                         <input type="text" id="usuarioLogin" name="usuario" autocomplete="off"><br>
                         <label for="password" id="passwordLabel">Contraseña</label><br>

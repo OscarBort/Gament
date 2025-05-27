@@ -39,7 +39,7 @@ function sessionStart(){
 
 function login($usuario, $password){
     // Para iniciar sesión redirigimos origen para que vuelva a la misma página una vez logueado
-    if ($_SESSION['rol'] == "invitado") $_SESSION['origen'] = $_SERVER["PHP_SELF"];
+    if ($_SESSION['rol'] == "invitado") $_SESSION['origen'] = $_SERVER["REQUEST_URI"];
     // Si no introduce ningún dato le damos error y redirigimos para que se de cuenta del error
     if ($usuario == "" && $password == "") {
         $_SESSION['mensaje'] = "No has introducido ningún dato.";
@@ -50,11 +50,12 @@ function login($usuario, $password){
     if (isset($_POST["usuario"]) && isset($_POST["password"])){
         if ($usuario != ""){
             $conn = db_connect();
-        $sql = "SELECT usuario, password, rol FROM usuarios WHERE usuario = '" . $_POST['usuario'] . "'";
+        $sql = "SELECT id_usuario, usuario, password, rol FROM usuarios WHERE usuario = '" . $_POST['usuario'] . "'";
         $results = db_query($conn, $sql);
         if (password_verify($password, $results[0]["password"])){
             $_SESSION["rol"] = $results[0]["rol"];
             $_SESSION["usuario"] = $results[0]["usuario"];
+            $_SESSION["id_usuario"] = $results[0]["id_usuario"];
             if ($_SESSION["rol"] == "administrador")
                 header("Location:" . $_SESSION['origen']);
             else header("Location: index.php");
@@ -91,8 +92,8 @@ function registro(){
 }
 
 function subirImagen(){
+    $id_usuario = $_SESSION['id_usuario'];
     $target_dir = "uploads/";
-    $id_usuario = 123; // ← Asegúrate de tener este valor desde sesión o base de datos
 
     $imageFileType = strtolower(pathinfo($_FILES["fileToUpload"]["name"], PATHINFO_EXTENSION));
     $newFileName = "fotoperfil" . $id_usuario . "." . $imageFileType;
@@ -101,7 +102,7 @@ function subirImagen(){
     $uploadOk = 1;
 
     // Check if image file is a actual image or fake image
-    if (isset($_POST["submit"])) {
+    if (isset($_POST["submitImagen"])) {
         $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
         if ($check !== false) {
             echo "File is an image - " . $check["mime"] . ".";
@@ -180,7 +181,22 @@ function subirImagen(){
         imagedestroy($tmp_image);
         imagedestroy($src_image);
 
-        echo "Your profile picture has been uploaded and resized successfully.";
+        // ✅ Guardar el nombre en la base de datos
+        try {
+            $conn = db_connect(); // ← Tu función que devuelve un objeto PDO
+            $sql = "UPDATE usuarios SET logo = :logo WHERE id_usuario = :id";
+            $stmt = $conn->prepare($sql);
+            $stmt->execute([
+                ':logo' => $target_file,
+                ':id' => $id_usuario
+            ]);
+        } catch (PDOException $e) {
+            echo "Error al guardar en la base de datos: " . $e->getMessage();
+            exit;
+        }
+
+        header("Location: usuario.php");
+        exit;
 
     } else {
         echo "Sorry, your file was not uploaded.";
