@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+/* Aplica solo en la página de búsqueda */
+.paginaBusqueda {
+    font-family: 'Roboto', sans-serif;
+}
+
+.paginaBusqueda .resultadosBusquedaWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    margin: auto;
+}
+
+.paginaBusqueda .contenedorBusqueda {
+    display: flex;
+    align-items: stretch;
+    background-color: #112f23;
+    border-radius: 10px;
+    padding: 15px;
+    width: 900px; /* Ancho fijo para todos los contenedores */
+    margin: 0 auto; /* Centra el contenedor en la pantalla */
+    color: #ffffff;
+    gap: 20px;
+    min-height: 220px;
+}
+
+.paginaBusqueda .portadaBusqueda {
+    flex: 0 0 200px;
+    text-align: center;
+}
+
+.paginaBusqueda .portadaBusqueda img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    display: block;
+    margin: 0 auto 10px;
+}
+
+.paginaBusqueda .portadaBusqueda p {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.paginaBusqueda .datosBusqueda {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    font-size: 1rem;
+    line-height: 1.6;
+    text-align: center;
+    padding-right: 50px; /* espacio para el precio */
+}
+
+.paginaBusqueda .datosBusqueda .textoDescripcion {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10px;
+}
+
+/* Bloque de precio a la derecha */
+.paginaBusqueda .datosBusqueda .precioCarrito {
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
+    text-align: right;
+}
+
+.paginaBusqueda .datosBusqueda .precioCarrito i {
+    margin-right: 5px;
+    color: #FFD700; /* Color dorado para destacar */
+}
+
+.paginaBusqueda .datosBusqueda .precioCarrito span {
+    font-weight: bold;
+}
+.paginaBusqueda #busquedaError{
+    color: white;
+    margin-left: 45%;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+
+

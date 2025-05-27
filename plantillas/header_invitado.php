@@ -27,7 +27,7 @@
         login(sanear($_POST["usuario"]), sanear($_POST["password"]));
     }
 ?>
-<body>
+<body class="<?php echo isset($bodyClass) ? $bodyClass : ''; ?>">
     <?php echo var_dump($_SESSION['rol']) ?>
     <header>
         <div id=headerIzquierda>

@@ -21,21 +21,57 @@ header{
 	margin-left: 15px;
 }
 #headerCentro{
-    width: 55%;
+    width: 70%;
     justify-content: center;
     margin-top: 30px;
     padding-left: 40px;
 }
 #headerDerecha{
-    width: 25%;
+    width: 15%;
+    position: relative;
+    display: inline-block;
 }
 #logo_usuario{
     width: 100px;
     height: 100px;
     border: 3px solid white;
     border-radius: 50%;
-    margin-left: 80px;
+    margin-left: 50px;
+    cursor: pointer;
 }
+  /* El menú desplegable, oculto por defecto */
+  #menuDesplegable {
+  max-height: 0;
+  overflow: hidden;
+  position: absolute;
+  right: 20;
+  background-color: #DC7A00;
+  min-width: 150px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  z-index: 1000;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  opacity: 0;
+}
+
+#menuDesplegable.show {
+  max-height: 500px;
+  opacity: 1;
+}
+
+
+  /* Opciones del menú */
+  #menuDesplegable a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+
+  /* Hover en opciones */
+  #menuDesplegable a:hover {
+    background-color: #FF8602;
+  }
+  
 .custom_input {
 	display: flex;
 	align-items: center;

@@ -13,12 +13,13 @@
     <link rel="stylesheet" href="css/cssfooter.css">
     <link rel="stylesheet" href="css/cssjuegos.css">
     <link rel="stylesheet" href="css/cssregistro.css">
+    <link rel="stylesheet" href="css/cssbusqueda.css">
     <meta name="description" content="Una página copia de otras como Game o Gamestop">
     <meta name="author" content="Oscar Bort">
     <script src="https://kit.fontawesome.com/89d2629216.js" crossorigin="anonymous"></script>
     <title>Gamen't</title>
 </head>
-<body>
+<body class="<?php echo isset($bodyClass) ? $bodyClass : ''; ?>">
     <header>
         <div id=headerIzquierda>
             <a href="index.php"><img src="img/logo.png" id="logo" alt="Logo parodia de otras compañías de venta de videojuegos en color naranja y de texto GAMEN'T"></a>
@@ -31,10 +32,17 @@
                 </form>
             </div>
         </div>
-        <div id=headerDerecha>
-            <img id="logo_usuario" src="img/logo_usuario.png" alt="">
-            <a href="plantillas/logout.php"><button>Salir</button></a>
-        </div>
+        
+            <div id="headerDerecha">
+                <img id="logo_usuario" src="uploads/logodefault.png" alt="Menú Usuario" onclick="toggleMenu()">
+                
+                <div id="menuDesplegable">
+                    <a href="editar_perfil.php">Editar datos de perfil</a>
+                    <a href="plantillas/logout.php">Salir</a>
+                </div>
+            </div>
+        
     </header>
+
 
 

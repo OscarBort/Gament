@@ -4,7 +4,7 @@ include "C:/wamp64/credenciales/credencialesgament.php";
 function db_connect() {
     global $servername, $username, $password, $dbname;
     try {
-        $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+        $conn = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8", $username, $password);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         return $conn;
     } catch(PDOException $e) {
@@ -88,5 +88,102 @@ function registro(){
     $conn->exec($sql);
     db_close($conn);
     header ("Location: index.php");
+}
+
+function subirImagen(){
+    $target_dir = "uploads/";
+    $id_usuario = 123; // ← Asegúrate de tener este valor desde sesión o base de datos
+
+    $imageFileType = strtolower(pathinfo($_FILES["fileToUpload"]["name"], PATHINFO_EXTENSION));
+    $newFileName = "fotoperfil" . $id_usuario . "." . $imageFileType;
+    $target_file = $target_dir . $newFileName;
+
+    $uploadOk = 1;
+
+    // Check if image file is a actual image or fake image
+    if (isset($_POST["submit"])) {
+        $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+        if ($check !== false) {
+            echo "File is an image - " . $check["mime"] . ".";
+            $uploadOk = 1;
+        } else {
+            echo "File is not an image.";
+            $uploadOk = 0;
+        }
+    }
+
+    // Check if file already exists
+    if (file_exists($target_file)) {
+        unlink($target_file); // Elimina la imagen anterior
+    }
+
+    // Check file size
+    if ($_FILES["fileToUpload"]["size"] > 2000000) {
+        echo "Sorry, your file is too large.";
+        $uploadOk = 0;
+    }
+
+    // Allow certain file formats
+    if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+        && $imageFileType != "gif" && $imageFileType != "webp") {
+        echo "Sorry, only JPG, JPEG, PNG, GIF & WEBP files are allowed.";
+        $uploadOk = 0;
+    }
+
+    // If all checks passed, resize and save the image
+    if ($uploadOk == 1) {
+
+        list($width, $height) = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+        $new_width = 300;
+        $new_height = 300;
+
+        $tmp_image = imagecreatetruecolor($new_width, $new_height);
+
+        switch ($imageFileType) {
+            case 'jpeg':
+            case 'jpg':
+                $src_image = imagecreatefromjpeg($_FILES["fileToUpload"]["tmp_name"]);
+                break;
+            case 'png':
+                $src_image = imagecreatefrompng($_FILES["fileToUpload"]["tmp_name"]);
+                break;
+            case 'gif':
+                $src_image = imagecreatefromgif($_FILES["fileToUpload"]["tmp_name"]);
+                break;
+            case 'webp':
+                $src_image = imagecreatefromwebp($_FILES["fileToUpload"]["tmp_name"]);
+                break;
+            default:
+                echo "Unsupported image format.";
+                $uploadOk = 0;
+                exit;
+        }
+
+        imagecopyresampled($tmp_image, $src_image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+
+        switch ($imageFileType) {
+            case 'jpeg':
+            case 'jpg':
+                imagejpeg($tmp_image, $target_file, 85);
+                break;
+            case 'png':
+                imagepng($tmp_image, $target_file);
+                break;
+            case 'gif':
+                imagegif($tmp_image, $target_file);
+                break;
+            case 'webp':
+                imagewebp($tmp_image, $target_file, 85);
+                break;
+        }
+
+        imagedestroy($tmp_image);
+        imagedestroy($src_image);
+
+        echo "Your profile picture has been uploaded and resized successfully.";
+
+    } else {
+        echo "Sorry, your file was not uploaded.";
+}
 }
 ?>

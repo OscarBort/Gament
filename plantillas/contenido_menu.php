@@ -13,11 +13,11 @@
     </li>
     <li><a class='dropdown-arrow' href='http://'>Género</a>
       <ul class='sub-menus'>
-        <li><a href='http://'>RPG</a></li>
-        <li><a href='http://'>Acción</a></li>
-        <li><a href='http://'>Deportivo</a></li>
-        <li><a href='http://'>Infantil</a></li>
-        <li><a href='http://'>Shooter</a></li>
+        <li><a href='busqueda.php?busqueda=RPG'>RPG</a></li>
+        <li><a href='busqueda.php?busqueda=Acción'>Acción</a></li>
+        <li><a href='busqueda.php?busqueda=Deportivo'>Deportivo</a></li>
+        <li><a href='busqueda.php?busqueda=Infantil'>Infantil</a></li>
+        <li><a href='busqueda.php?busqueda=Shooter'>Shooter</a></li>
       </ul>
     </li>
     <li><a href='http://'>Ofertas</a></li>

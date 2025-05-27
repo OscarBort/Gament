@@ -7,3 +7,17 @@ function updatemenu() {
   }
 }
 
+function toggleMenu() {
+  const menu = document.getElementById('menuDesplegable');
+  menu.classList.toggle('show');
+}
+
+// Cerrar al hacer clic fuera
+window.onclick = function(event) {
+  const menu = document.getElementById('menuDesplegable');
+  const btn = document.getElementById('logo_usuario');
+  if (event.target !== btn && !btn.contains(event.target)) {
+    menu.classList.remove('show');
+  }
+}
+
