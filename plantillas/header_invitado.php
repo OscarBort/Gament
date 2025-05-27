@@ -22,11 +22,12 @@
     <title>Gamen't</title>
 </head>
 <?php
-    if(isset($_POST["usuario"]) && isset($_POST["password"])){
+    if (isset($_POST["usuario"], $_POST["password"]) && empty($_SESSION['registrado'])) {
         //if ($_SERVER["PHP_SELF"] != "/portal/login.php")
             //$_SESSION['origen'] = $_SERVER["PHP_SELF"];
         login(sanear($_POST["usuario"]), sanear($_POST["password"]));
     }
+    unset($_SESSION['registrado']);
 ?>
 <body class="<?php echo isset($bodyClass) ? $bodyClass : ''; ?>">
     <?php echo var_dump($_SESSION['rol']) ?>
@@ -45,7 +46,8 @@
         <div id=headerDerecha>
             <button id="botonLogin" onclick="window.modal.showModal();">Login</button>
                 <dialog id="modal">
-                    <form id="login" method="POST" action="<?=($_SERVER['REQUEST_URI'])?>">
+                    <form id="login" method="POST" action="index.php">
+                        <input type="hidden" name="login" value="1">
                         <label for="usuario" id="usuarioLabel">Usuario:</label><br>
                         <input type="text" id="usuarioLogin" name="usuario" autocomplete="off"><br>
                         <label for="password" id="passwordLabel">Contraseña</label><br>

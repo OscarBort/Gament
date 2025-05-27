@@ -1,6 +1,17 @@
 <?php
 include "C:/wamp64/credenciales/credencialesgament.php";
 
+function sessionStart(){
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+    
+
+    if (!isset($_SESSION["rol"]))
+       $_SESSION["rol"] = "invitado";
+
+}
+
 function db_connect() {
     global $servername, $username, $password, $dbname;
     try {
@@ -26,46 +37,49 @@ function db_close(&$conn) {
     $conn = null;
 }
 
-function sessionStart(){
-    if (session_status() === PHP_SESSION_NONE) {
-        session_start();
-    }
-    
-
-    if (!isset($_SESSION["rol"]))
-       $_SESSION["rol"] = "invitado";
-
-}
-
 function login($usuario, $password){
-    // Para iniciar sesión redirigimos origen para que vuelva a la misma página una vez logueado
-    if ($_SESSION['rol'] == "invitado") $_SESSION['origen'] = $_SERVER["REQUEST_URI"];
-    // Si no introduce ningún dato le damos error y redirigimos para que se de cuenta del error
+    if (!isset($_SESSION['origen'])) {
+        $_SESSION['origen'] = '/index.php';  // o alguna página por defecto
+    }
+
+    if ($_SESSION['rol'] == "invitado") {
+        $_SESSION['origen'] = $_SERVER["REQUEST_URI"];
+    }
+
     if ($usuario == "" && $password == "") {
         $_SESSION['mensaje'] = "No has introducido ningún dato.";
         header("Location:" . $_SESSION['origen']);
         unset($_SESSION['origen']);
         die;
     }
-    if (isset($_POST["usuario"]) && isset($_POST["password"])){
-        if ($usuario != ""){
-            $conn = db_connect();
-        $sql = "SELECT id_usuario, usuario, password, rol FROM usuarios WHERE usuario = '" . $_POST['usuario'] . "'";
-        $results = db_query($conn, $sql);
-        if (password_verify($password, $results[0]["password"])){
+
+    if ($usuario != "") {
+        $conn = db_connect();
+        $sql = "SELECT id_usuario, usuario, password, rol FROM usuarios WHERE usuario = :usuario";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([':usuario' => $usuario]);
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        if (!empty($results) && password_verify($password, $results[0]["password"])) {
             $_SESSION["rol"] = $results[0]["rol"];
             $_SESSION["usuario"] = $results[0]["usuario"];
             $_SESSION["id_usuario"] = $results[0]["id_usuario"];
+            unset($_SESSION['origen']);
+            db_close($conn);
             if ($_SESSION["rol"] == "administrador")
                 header("Location:" . $_SESSION['origen']);
-            else header("Location: index.php");
-            unset($_SESSION['origen']);
-            $conn = db_close();
+            else
+                header("Location: index.php");
             die();
-        }
+        } else {
+            $_SESSION['mensaje'] = "Usuario o contraseña incorrectos.";
+            header("Location:" . $_SESSION['origen']);
+            unset($_SESSION['origen']);
+            die();
         }
     }
 }
+
 
 function logout(){
     session_start();
@@ -88,7 +102,11 @@ function registro(){
     VALUES ('" . $_POST['usuario'] . "', '" . password_hash($_POST['password'], PASSWORD_DEFAULT) .  "', '" . $_POST['email'] . "', '" . $_POST['nombre'] . "', '" . $_POST['apellido1'] . "', '" . $_POST['apellido2'] . "', '" . $_POST['NIF'] . "', '" . $_POST['fnacimiento'] . "', '" . $_POST['telefono'] . "')";
     $conn->exec($sql);
     db_close($conn);
+    
+    login(sanear($_POST['usuario']), sanear($_POST['password']));
+    
     header ("Location: index.php");
+    exit;
 }
 
 function subirImagen(){
