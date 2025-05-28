@@ -1,10 +1,5 @@
-<?php require_once "funciones.php";
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    registro();
-    exit;
-} ?>
-    <form class="form" method="POST" action="index.php">
-     <input type="hidden" name="registro" value="1">
+<form class="form" method="POST" action="index.php">
+    <input type="hidden" name="registro" value="1">
     <p class="titleRegistro">Registro </p>
     <label>
         <input class="input" type="text" placeholder="" name="usuario" required autocomplete="off">

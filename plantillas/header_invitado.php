@@ -48,6 +48,7 @@
                 <dialog id="modal">
                     <form id="login" method="POST" action="index.php">
                         <input type="hidden" name="login" value="1">
+                        <input type="hidden" name="origen" value="<?= htmlspecialchars($_SERVER['REQUEST_URI']) ?>">
                         <label for="usuario" id="usuarioLabel">Usuario:</label><br>
                         <input type="text" id="usuarioLogin" name="usuario" autocomplete="off"><br>
                         <label for="password" id="passwordLabel">Contraseña</label><br>
