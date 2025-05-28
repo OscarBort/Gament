@@ -133,6 +133,13 @@
     background-color: #DC7A00;
     border-radius: 20%;
 }
+.precioOriginal {
+    text-decoration: line-through;
+    color: #888;
+}
+.precioOferta {
+    color: #e44;
+}
 
 
 

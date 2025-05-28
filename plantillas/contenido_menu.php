@@ -20,7 +20,7 @@
         <li><a href='busqueda.php?busqueda=Shooter'>Shooter</a></li>
       </ul>
     </li>
-    <li><a href='http://'>Ofertas</a></li>
+    <li><a href='busqueda.php?oferta'>Ofertas</a></li>
     <li><a href='http://'>Contact Us</a></li>
     <li id="carrito" onclick="toggleCarrito()">
       <a href="javascript:void(0);" onclick="toggleCarrito(event)">
