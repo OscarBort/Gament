@@ -22,8 +22,8 @@ window.onclick = function(event) {
 }
 
 // Añadir cosas al carrito
-// Si quieres que el carrito se mantenga en memoria
-let carrito = [];
+// Inicializar el carrito desde localStorage o como un array vacío
+let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
 window.agregarAlCarrito = function(nombre, precio, portada) {
     const index = carrito.findIndex(p => p.nombre === nombre);
@@ -32,6 +32,8 @@ window.agregarAlCarrito = function(nombre, precio, portada) {
     } else {
         carrito.push({ nombre, precio: parseFloat(precio), portada, cantidad: 1 });
     }
+    // Guardar en localStorage
+    localStorage.setItem('carrito', JSON.stringify(carrito));
     actualizarCarritoVisual();
 };
 
@@ -70,28 +72,25 @@ function actualizarCarritoVisual() {
     `;
 }
 
-
-
-
 window.modificarCantidad = function(index, cambio) {
     carrito[index].cantidad += cambio;
     if (carrito[index].cantidad <= 0) {
         carrito.splice(index, 1); // eliminar si llega a 0
     }
+    // Guardar en localStorage
+    localStorage.setItem('carrito', JSON.stringify(carrito));
     actualizarCarritoVisual();
 };
+
 window.toggleCarrito = function(event) {
     event?.stopPropagation();
-
     const div = document.getElementById("carritoContenido");
-
     if (div.classList.contains("visible")) {
         div.classList.remove("visible");
     } else {
         div.classList.add("visible");
     }
 };
-
 
 // Para cerrar si se hace clic fuera del carrito
 document.addEventListener("click", function (event) {
@@ -101,25 +100,29 @@ document.addEventListener("click", function (event) {
         carrito.classList.remove("visible");
     }
 });
+
+// Cargar el carrito al iniciar la página
 document.addEventListener("DOMContentLoaded", function () {
-  const productosCarrito = document.getElementById("productosCarrito");
-  if (productosCarrito) {
-    productosCarrito.addEventListener("click", function (event) {
-      event.stopPropagation();
+    // Actualizar la interfaz del carrito al cargar la página
+    actualizarCarritoVisual();
 
-      const btn = event.target;
-      const contenedor = btn.closest(".producto-item");
-      if (!contenedor) return;
+    const productosCarrito = document.getElementById("productosCarrito");
+    if (productosCarrito) {
+        productosCarrito.addEventListener("click", function (event) {
+            event.stopPropagation();
+            const btn = event.target;
+            const contenedor = btn.closest(".producto-item");
+            if (!contenedor) return;
 
-      const index = parseInt(contenedor.getAttribute("data-index"));
+            const index = parseInt(contenedor.getAttribute("data-index"));
 
-      if (btn.classList.contains("sumar")) {
-        modificarCantidad(index, 1);
-      } else if (btn.classList.contains("restar")) {
-        modificarCantidad(index, -1);
-      }
-    });
-  }
+            if (btn.classList.contains("sumar")) {
+                modificarCantidad(index, 1);
+            } else if (btn.classList.contains("restar")) {
+                modificarCantidad(index, -1);
+            }
+        });
+    }
 });
 
 
