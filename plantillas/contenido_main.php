@@ -13,7 +13,7 @@ try {
 }
 ?>
 <div id="mainIzquierda">
-  <p>Hola mundo</p>
+  <img id="bannerIzquierda" src="img/banner.jpeg" alt="">
 </div>
 <div id="mainCentro">
   <div class="wrapper">
@@ -58,7 +58,7 @@ try {
     </div>
 </div>
 <div id="mainDerecha">
-  <p>Hola mundo</p>
+  <img id="bannerIzquierda" src="img/banner.jpeg" alt="">
 </div>
 <?php
 // Cerrar conexión

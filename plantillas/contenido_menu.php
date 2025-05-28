@@ -22,7 +22,15 @@
     </li>
     <li><a href='http://'>Ofertas</a></li>
     <li><a href='http://'>Contact Us</a></li>
-    <li id="carrito"><a href='http://'><i class="fa-solid fa-cart-shopping"></i></a></li>
+    <li id="carrito" onclick="toggleCarrito()">
+      <a href="javascript:void(0);" onclick="toggleCarrito(event)">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span id="contadorCarrito">0</span>
+      </a>
+      <div id="carritoContenido">
+        <div id="productosCarrito"></div>
+      </div>
+    </li>
   </ul>
 </nav>
 <main>

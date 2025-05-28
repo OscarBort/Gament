@@ -20,7 +20,7 @@ try {
 
 
 <div id="mainIzquierda">
-  <p>Hola mundo</p>
+  <img id="bannerIzquierda" src="img/banner.jpeg" alt="">
 </div>
 <div id="mainCentro">
     <div class="main">
@@ -85,7 +85,7 @@ if (!empty($results)) {
 </div>
 </div>
 <div id="mainDerecha">
-  <p>Hola mundo</p>
+  <img id="bannerIzquierda" src="img/banner.jpeg" alt="">
 </div>
 <?php
 // Cerrar conexión

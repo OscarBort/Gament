@@ -1,4 +1,4 @@
-<script src="funciones.js"></script>
+<script src="funciones.js" defer></script>
 <?php require_once "funciones.php"?>
 <!DOCTYPE html>
 <html lang="es">
