@@ -25,12 +25,13 @@ window.onclick = function(event) {
 // Inicializar el carrito desde localStorage o como un array vacío
 let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
-window.agregarAlCarrito = function(nombre, precio, portada) {
+window.agregarAlCarrito = function(nombre, precio, portada, cantidad = 1) {
     const index = carrito.findIndex(p => p.nombre === nombre);
+    cantidad = parseInt(cantidad) || 1; // Asegura que es un número válido
     if (index !== -1) {
-        carrito[index].cantidad++;
+        carrito[index].cantidad += cantidad;
     } else {
-        carrito.push({ nombre, precio: parseFloat(precio), portada, cantidad: 1 });
+        carrito.push({ nombre, precio: parseFloat(precio), portada, cantidad });
     }
     // Guardar en localStorage
     localStorage.setItem('carrito', JSON.stringify(carrito));
