@@ -21,9 +21,9 @@ window.agregarAlCarrito = function(id_juego, nombre, precio, portada, cantidad =
     const index = carrito.findIndex(p => p.id_juego === id_juego);
 
     if (index !== -1) {
-        carrito[index].cantidad += cantidad;
+        carrito[index].unidades += cantidad;
     } else {
-        carrito.push({ id_juego, nombre, precio: parseFloat(precio), portada, cantidad });
+        carrito.push({ id_juego, nombre, precio: parseFloat(precio), portada, unidades: cantidad });
     }
     localStorage.setItem('carrito', JSON.stringify(carrito));
     actualizarCarritoVisual();
@@ -33,7 +33,7 @@ function actualizarCarritoVisual() {
     const contador = document.getElementById("contadorCarrito");
     const contenido = document.getElementById("productosCarrito");
 
-    const totalUnidades = carrito.reduce((acc, p) => acc + p.cantidad, 0);
+    const totalUnidades = carrito.reduce((acc, p) => acc + p.unidades, 0);
     contador.textContent = totalUnidades;
     contador.style.display = totalUnidades > 0 ? "flex" : "none";
 
@@ -49,14 +49,14 @@ function actualizarCarritoVisual() {
                 </div>
                 <div style="display:flex; flex-direction:column; align-items:center;">
                     <button class="sumar">+</button>
-                    <span>${p.cantidad}</span>
+                    <span>${p.unidades}</span>
                     <button class="restar">−</button>
                 </div>
             </div>
         `;
     });
 
-    const total = carrito.reduce((acc, p) => acc + p.precio * p.cantidad, 0);
+    const total = carrito.reduce((acc, p) => acc + p.precio * p.unidades, 0);
     contenido.innerHTML += `
         <div style="border-top:1px solid #ccc; padding-top:10px; text-align:right;">
             <strong>Total: ${total.toFixed(2)} €</strong>
@@ -92,8 +92,10 @@ function actualizarCarritoVisual() {
 
 // Modificar cantidad (sumar/restar)
 window.modificarCantidad = function(index, cambio) {
-    carrito[index].cantidad += cambio;
-    if (carrito[index].cantidad <= 0) carrito.splice(index, 1);
+    carrito[index].unidades += cambio;
+    if (carrito[index].unidades <= 0) {
+        carrito.splice(index, 1); // eliminar si llega a 0
+    }
     localStorage.setItem('carrito', JSON.stringify(carrito));
     actualizarCarritoVisual();
 };
@@ -132,3 +134,4 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
+

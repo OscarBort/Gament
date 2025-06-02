@@ -40,7 +40,7 @@ try {
     $id_venta = $conn->lastInsertId();
 
     // Insertar detalles
-    $stmt_detalle = $conn->prepare("INSERT INTO juegos_ventas (id_venta, id_juego, unidades, precio) VALUES (?, ?, ?, ?)");
+    $stmt_detalle = $conn->prepare("INSERT INTO juegos_venta (id_venta, id_juego, unidades, precio) VALUES (?, ?, ?, ?)");
 
     foreach ($carrito as $item) {
         if (!isset($item['id_juego'], $item['unidades'], $item['precio'])) {

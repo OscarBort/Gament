@@ -26,7 +26,7 @@ try {
     }
 
     // Ejemplo de consulta SELECT directa
-    $sql = "SELECT juegos.id_juego AS juegoID, portada, stock, juegos.nombre AS nombreJ, descripcion, precio, nota, comentario, usuario, oferta, descuento, usuarios.id_usuario AS usuarioID FROM juegos left JOIN valoraciones on juegos.id_juego=valoraciones.id_juego left JOIN usuarios on valoraciones.id_usuario=usuarios.id_usuario WHERE juegos.id_juego=$id;";
+    $sql = "SELECT juegos.id_juego AS ID, portada, stock, juegos.nombre AS nombreJ, descripcion, precio, nota, comentario, usuario, oferta, descuento, usuarios.id_usuario AS usuarioID FROM juegos left JOIN valoraciones on juegos.id_juego=valoraciones.id_juego left JOIN usuarios on valoraciones.id_usuario=usuarios.id_usuario WHERE juegos.id_juego=$id;";
     $results = db_query($conn, $sql);
     if (!empty($results) && isset($results[0])) {
       $result = $results[0];
@@ -65,7 +65,7 @@ $precioFinal = $results[0]['oferta'] == 1 ? $results[0]['precio'] * (1 - $result
       else echo 'Sin stock';
       ?>
     </div>
-      <div class="cart"><?php echo "<button id='botonBusqueda' class='fas fa-shopping-cart' style='cursor:pointer;' onclick='event.preventDefault(); event.stopPropagation(); agregarAlCarrito(\"" . addslashes($result['nombreJ']) . "\",\"" . number_format($precioFinal, 2, '.', '') . "\",\"" . $result['portada'] . "\", document.getElementById(\"stock\").value)' aria-label='Añadir al carrito'></button>"; ?>
+      <div class="cart"><?php echo "<button id='botonBusqueda' class='fas fa-shopping-cart' style='cursor:pointer;' onclick='event.preventDefault(); event.stopPropagation(); agregarAlCarrito(" . $result['ID'] . ", \"" . addslashes($result['nombreJ']) . "\", \"" . number_format($precioFinal, 2, '.', '') . "\", \"" . $result['portada'] . "\", parseInt(document.getElementById(\"stock\").value) || 1)' aria-label='Añadir al carrito'></button>"; ?>
     </div>
     </div>
     <?php switch(floor($notaM[0]['notaMedia'])){
