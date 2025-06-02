@@ -2,7 +2,13 @@
 session_start();
 
 header('Content-Type: application/json');
-$fecha_actual = date('Y-m-d H:i:s');
+$data = json_decode(file_get_contents("php://input"), true);
+
+$fecha_actual = isset($data['fecha']) ? $data['fecha'] : date('Y-m-d H:i:s');  // <--- aquí
+
+if (!$data || !isset($data['carrito']) || !isset($data['total'])) {
+    throw new Exception("Datos inválidos.");
+}
 
 // Mostrar errores para desarrollo
 ini_set('display_errors', 1);

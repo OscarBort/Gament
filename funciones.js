@@ -30,6 +30,7 @@ window.agregarAlCarrito = function(id_juego, nombre, precio, portada, cantidad =
 };
 
 function actualizarCarritoVisual() {
+    const fechaUsuario = new Date().toISOString(); // Aquí cogemos la hora local para el timestamp
     const contador = document.getElementById("contadorCarrito");
     const contenido = document.getElementById("productosCarrito");
 
