@@ -13,27 +13,18 @@ function toggleMenu() {
 }
 
 // Cerrar al hacer clic fuera
-window.onclick = function(event) {
-  const menu = document.getElementById('menuDesplegable');
-  const btn = document.getElementById('logo_usuario');
-  if (event.target !== btn && !btn.contains(event.target)) {
-    menu.classList.remove('show');
-  }
-}
-
-// Añadir cosas al carrito
-// Inicializar el carrito desde localStorage o como un array vacío
+// carrito inicializado
 let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
-window.agregarAlCarrito = function(nombre, precio, portada, cantidad = 1) {
-    const index = carrito.findIndex(p => p.nombre === nombre);
-    cantidad = parseInt(cantidad) || 1; // Asegura que es un número válido
+window.agregarAlCarrito = function(id_juego, nombre, precio, portada, cantidad = 1) {
+    cantidad = parseInt(cantidad) || 1;
+    const index = carrito.findIndex(p => p.id_juego === id_juego);
+
     if (index !== -1) {
         carrito[index].cantidad += cantidad;
     } else {
-        carrito.push({ nombre, precio: parseFloat(precio), portada, cantidad });
+        carrito.push({ id_juego, nombre, precio: parseFloat(precio), portada, cantidad });
     }
-    // Guardar en localStorage
     localStorage.setItem('carrito', JSON.stringify(carrito));
     actualizarCarritoVisual();
 };
@@ -70,41 +61,61 @@ function actualizarCarritoVisual() {
         <div style="border-top:1px solid #ccc; padding-top:10px; text-align:right;">
             <strong>Total: ${total.toFixed(2)} €</strong>
         </div>
+        <div style="text-align:center; margin-top:10px;">
+            <button id="btnRealizarCompra">Realizar compra</button>
+        </div>
     `;
+
+    const btn = document.getElementById('btnRealizarCompra');
+    if (btn) {
+        btn.onclick = function () {
+            fetch('procesar_compra.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ carrito, total })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Compra realizada con éxito. ID Venta: ' + data.id_venta);
+                    carrito = [];
+                    localStorage.removeItem('carrito');
+                    actualizarCarritoVisual();
+                } else {
+                    alert('Error al procesar la compra: ' + data.error);
+                }
+            })
+            .catch(() => alert('Error de conexión al procesar la compra'));
+        }
+    }
 }
 
+// Modificar cantidad (sumar/restar)
 window.modificarCantidad = function(index, cambio) {
     carrito[index].cantidad += cambio;
-    if (carrito[index].cantidad <= 0) {
-        carrito.splice(index, 1); // eliminar si llega a 0
-    }
-    // Guardar en localStorage
+    if (carrito[index].cantidad <= 0) carrito.splice(index, 1);
     localStorage.setItem('carrito', JSON.stringify(carrito));
     actualizarCarritoVisual();
 };
 
+// Toggle carrito visible
 window.toggleCarrito = function(event) {
     event?.stopPropagation();
     const div = document.getElementById("carritoContenido");
-    if (div.classList.contains("visible")) {
-        div.classList.remove("visible");
-    } else {
-        div.classList.add("visible");
-    }
+    div.classList.toggle("visible");
 };
 
-// Para cerrar si se hace clic fuera del carrito
+// Cerrar carrito si clic fuera
 document.addEventListener("click", function (event) {
-    const carrito = document.getElementById("carritoContenido");
+    const carritoDiv = document.getElementById("carritoContenido");
     const icono = document.getElementById("carrito");
-    if (!carrito.contains(event.target) && !icono.contains(event.target)) {
-        carrito.classList.remove("visible");
+    if (!carritoDiv.contains(event.target) && !icono.contains(event.target)) {
+        carritoDiv.classList.remove("visible");
     }
 });
 
-// Cargar el carrito al iniciar la página
+// Listeners para sumar/restar dentro del carrito
 document.addEventListener("DOMContentLoaded", function () {
-    // Actualizar la interfaz del carrito al cargar la página
     actualizarCarritoVisual();
 
     const productosCarrito = document.getElementById("productosCarrito");
@@ -116,15 +127,8 @@ document.addEventListener("DOMContentLoaded", function () {
             if (!contenedor) return;
 
             const index = parseInt(contenedor.getAttribute("data-index"));
-
-            if (btn.classList.contains("sumar")) {
-                modificarCantidad(index, 1);
-            } else if (btn.classList.contains("restar")) {
-                modificarCantidad(index, -1);
-            }
+            if (btn.classList.contains("sumar")) modificarCantidad(index, 1);
+            else if (btn.classList.contains("restar")) modificarCantidad(index, -1);
         });
     }
 });
-
-
-

@@ -5,7 +5,7 @@ if (isset($_GET["busqueda"])) {
     try {
         $conn = db_connect();
 
-        $sql = "SELECT juegos.id_juego AS ID, portada, juegos.nombre AS nombreJ, descripcion, precio, genero, descuento, oferta FROM juegos INNER JOIN compañias ON juegos.id_compañia=compañias.id_compañia WHERE juegos.nombre LIKE '%" . $_GET['busqueda'] . "%' OR compañias.nombre='" . $_GET['busqueda'] . "' OR juegos.genero='" . $_GET['busqueda'] . "' GROUP BY juegos.nombre;";
+        $sql = "SELECT juegos.id_juego AS ID, stock, portada, juegos.nombre AS nombreJ, descripcion, precio, genero, descuento, oferta FROM juegos INNER JOIN compañias ON juegos.id_compañia=compañias.id_compañia WHERE juegos.nombre LIKE '%" . $_GET['busqueda'] . "%' OR compañias.nombre='" . $_GET['busqueda'] . "' OR juegos.genero='" . $_GET['busqueda'] . "' GROUP BY juegos.nombre;";
         $results = db_query($conn, $sql);
     } catch(Exception $e) {
         echo $e->getMessage();
@@ -28,11 +28,13 @@ if (isset($_GET["busqueda"])) {
                     echo "<div class='datosBusqueda'>";
                         echo "<div class='textoDescripcion'>" . htmlspecialchars($result['descripcion']) . "</div>";
                         echo "<div class='precioCarrito'>";
-                            echo "<button id='botonBusqueda' class='fas fa-shopping-cart' style='cursor:pointer;' onclick='event.preventDefault(); event.stopPropagation(); agregarAlCarrito(" .
+                            if ($result['stock'] != 0) {echo "<button id='botonBusqueda' class='fas fa-shopping-cart' style='cursor:pointer;' onclick='event.preventDefault(); event.stopPropagation(); agregarAlCarrito(" .
+                                $result['ID'] . ", " .
                                 '"' . addslashes($result['nombreJ']) . '",' .
                                 '"' . number_format($precioFinal, 2, '.', '') . '",' .
                                 '"' . $result['portada'] . '"' .
-                                ")' aria-label='Añadir al carrito'></button>";
+                                ")' aria-label='Añadir al carrito'></button>";}
+                            else echo "No hay stock";
                             echo "<span>";
                             if ($result['oferta'] == 1) {
                                 echo "<span style='text-decoration:line-through; color:#888;'>" . htmlspecialchars($result['precio']) . "€</span> ";
@@ -57,7 +59,7 @@ if (isset($_GET["oferta"])) {
     try {
         $conn = db_connect();
 
-        $sql = "SELECT juegos.id_juego AS ID, portada, juegos.nombre AS nombreJ, descripcion, precio, genero, descuento, oferta FROM juegos INNER JOIN compañias ON juegos.id_compañia=compañias.id_compañia WHERE oferta=1;";
+        $sql = "SELECT juegos.id_juego AS ID, stock portada, juegos.nombre AS nombreJ, descripcion, precio, genero, descuento, oferta FROM juegos INNER JOIN compañias ON juegos.id_compañia=compañias.id_compañia WHERE oferta=1;";
         $results = db_query($conn, $sql);
     } catch(Exception $e) {
         echo $e->getMessage();
