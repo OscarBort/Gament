@@ -1,0 +1,27 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+#mensajeFacturas{
+    background-color: white;
+    text-align: center;
+    margin: 10px 0;
+}
+
+#contenedorFacturas{
+    margin: auto;
+    margin-bottom: 15px;
+}
+
+#tablafacturas, #tablafacturas th, #tablafacturas td{
+    background-color: white;
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+#tablafacturas td{
+    width: 150px;
+    text-align: center;
+}
