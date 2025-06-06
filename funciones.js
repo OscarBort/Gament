@@ -78,7 +78,7 @@ function actualizarCarritoVisual() {
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
-                    alert('Compra realizada con éxito. ID Venta: ' + data.id_venta);
+                    alert('Compra realizada con éxito.');
                     carrito = [];
                     localStorage.removeItem('carrito');
                     actualizarCarritoVisual();
