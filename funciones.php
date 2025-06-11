@@ -88,19 +88,7 @@ function sanear($data) {
     return $data;
 }
 
-function registro(){
-    $conn = db_connect();
-    $sql = "INSERT INTO usuarios (usuario, password, email, nombre, apellido1, apellido2, NIF, fnacimiento, telefono)
-    VALUES ('" . $_POST['usuario'] . "', '" . password_hash($_POST['password'], PASSWORD_DEFAULT) .  "', '" . $_POST['email'] . "', '" . $_POST['nombre'] . "', '" . $_POST['apellido1'] . "', '" . $_POST['apellido2'] . "', '" . $_POST['NIF'] . "', '" . $_POST['fnacimiento'] . "', '" . $_POST['telefono'] . "')";
-    $conn->exec($sql);
-    db_close($conn);
-    
-    $_SESSION['origen'] = '/PHP/gament/index.php';
 
-    login(sanear($_POST['usuario']), sanear($_POST['password']));
-    
-    exit;
-}
 
 function subirImagen(){
     $id_usuario = $_SESSION['id_usuario'];

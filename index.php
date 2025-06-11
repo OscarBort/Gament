@@ -1,5 +1,6 @@
 <?php
 include_once "funciones.php";
+include_once "validacion_mejorada.php";
 sessionStart();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['registro'])) {
