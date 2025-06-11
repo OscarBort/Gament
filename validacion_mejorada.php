@@ -170,7 +170,7 @@ function registro() {
     if (!empty($errores)) {
         $_SESSION['errores_registro'] = $errores;
         $_SESSION['datos_form'] = $_POST; // Mantener datos para rellenar formulario
-        header("Location: index.php?error=registro");
+        header("Location: registro.php");
         exit;
     }
 
@@ -209,7 +209,7 @@ function registro() {
             // Hacer login automático como tienes actualmente
             login(sanear($datos_limpios['usuario']), sanear($datos_limpios['password']));
             
-            header("Location: index.php?success=registro");
+            header("Location:" . $_SESSION['origen']);
             exit;
         } else {
             throw new Exception("Error al insertar en la base de datos");
@@ -217,7 +217,7 @@ function registro() {
         
     } catch (Exception $e) {
         $_SESSION['errores_registro'] = ['general' => 'Error al procesar el registro. Inténtalo de nuevo.'];
-        header("Location: index.php?error=registro");
+        header("Location: registro.php");
         exit;
     }
 }

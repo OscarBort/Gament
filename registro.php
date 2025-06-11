@@ -1,5 +1,6 @@
 <?php
 require_once "funciones.php";
+require_once "validacion_mejorada.php";
 
 sessionStart();
 

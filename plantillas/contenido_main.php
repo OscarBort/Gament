@@ -56,6 +56,16 @@ try {
       <img class="banner-slide" src="img/banner3.png" alt="Juego 3">
       <img class="banner-slide" src="img/banner4.png" alt="Juego 4">
     </div>
+    <div id="errores">
+      <?php if (isset($_GET['success']) && $_GET['success'] == 'registro') {
+        echo '<div class="alert alert-success">¡Registro completado exitosamente!</div>';
+      }
+
+      if (isset($_GET['error']) && $_GET['error'] == 'registro') {
+        echo '<div class="alert alert-danger">Error en el registro. Revisa los campos marcados.</div>';
+        // Los errores específicos se muestran en cada campo del formulario
+      }?>
+    </div>
 </div>
 <div id="mainDerecha">
   <img id="bannerIzquierda" src="img/banner.jpeg" alt="">

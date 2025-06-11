@@ -39,7 +39,7 @@ function db_close(&$conn) {
 
 function login($usuario, $password){
     if (!isset($_SESSION['origen'])) {
-        $_SESSION['origen'] = '/index.php';  // fallback
+        $_SESSION['origen'] = 'index.php';  // fallback
     }
 
     if ($usuario == "" && $password == "") {
@@ -59,10 +59,8 @@ function login($usuario, $password){
         $_SESSION["rol"] = $results[0]["rol"];
         $_SESSION["usuario"] = $results[0]["usuario"];
         $_SESSION["id_usuario"] = $results[0]["id_usuario"];
-        $redirect = $_SESSION['origen'];
-        unset($_SESSION['origen']);
         db_close($conn);
-        header("Location:" . $redirect);
+        header("Location: index.php");
         die();
     } else {
         $_SESSION['mensaje'] = "Usuario o contraseña incorrectos.";
