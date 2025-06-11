@@ -95,9 +95,10 @@ function registro(){
     $conn->exec($sql);
     db_close($conn);
     
+    $_SESSION['origen'] = '/PHP/gament/index.php';
+
     login(sanear($_POST['usuario']), sanear($_POST['password']));
     
-    header ("Location: index.php");
     exit;
 }
 
